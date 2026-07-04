@@ -34,20 +34,15 @@ cmr_common_sample_part__before_project()
 project(fmt_LibCMaker_Compile_Test CXX)
 
 cmr_common_sample_part__project_settings()
-
-
-#-----------------------------------------------------------------------
-# Common sample part
-#-----------------------------------------------------------------------
-
 cmr_common_sample_part__add_executable()
 
 
 #-----------------------------------------------------------------------
-# Download, configure, build, install and find the required libraries
+# Unpack, configure, build and find the required libraries
 #-----------------------------------------------------------------------
 
-include(${LibCMaker_LIB_DIR}/LibCMaker_fmt/cmr_build_fmt.cmake)
+list(APPEND CMAKE_PREFIX_PATH ${LibCMaker_LIB_DIR}/fmt_LibCMaker/cmake)
+find_package(fmt REQUIRED)
 
 
 #-----------------------------------------------------------------------
@@ -60,9 +55,8 @@ target_sources(${PROJECT_NAME}
   PRIVATE
     ${example_src_DIR}/example.cpp
 )
-set_target_properties(${PROJECT_NAME} PROPERTIES
-  CXX_STANDARD 14
-)
+
+cmr_common_sample_part__set_cxx_c_standards()
 
 
 #-----------------------------------------------------------------------
@@ -77,5 +71,4 @@ target_link_libraries(${PROJECT_NAME} PRIVATE fmt::fmt)
 # Testing
 #-----------------------------------------------------------------------
 
-set(test_src_DIR "${CMAKE_CURRENT_LIST_DIR}/src")
-add_subdirectory(test)
+cmr_common_test_part__add_subdirectory_test()

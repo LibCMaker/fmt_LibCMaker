@@ -37,11 +37,10 @@ struct B : A {
 };
 
 template <typename T>
-struct fmt::formatter<T, std::enable_if_t<std::is_base_of<A, T>::value, char>> :
+struct fmt::formatter<T, std::enable_if_t<std::is_base_of_v<A, T>, char>> :
     fmt::formatter<std::string> {
-  template <typename FormatCtx>
-  auto format(const A& a, FormatCtx& ctx) {
-    return fmt::formatter<std::string>::format(a.name(), ctx);
+  auto format(const A& a, format_context& ctx) const {
+    return formatter<std::string>::format(a.name(), ctx);
   }
 };
 
