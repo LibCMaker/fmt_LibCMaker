@@ -42,7 +42,7 @@ cmr_common_sample_part__add_executable()
 #-----------------------------------------------------------------------
 
 list(APPEND CMAKE_PREFIX_PATH ${LibCMaker_LIB_DIR}/fmt_LibCMaker/cmake)
-find_package(fmt REQUIRED)
+find_package(fmt REQUIRED CONFIG)
 
 
 #-----------------------------------------------------------------------
